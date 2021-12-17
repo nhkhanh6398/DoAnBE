@@ -13,7 +13,6 @@ import vku.project.entity.Categories;
 import vku.project.entity.Product;
 import vku.project.service.CategoryService;
 import vku.project.service.ProductService;
-import vku.project.service.SupplierService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,8 +25,7 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private SupplierService supplierService;
+
 
 
     @GetMapping("/catagory")
@@ -46,6 +44,14 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+    @GetMapping("/listAllProduct")
+    public ResponseEntity<List<Product>> listAllProduct(){
+        List<Product> products = this.productService.findAllListProduct();
+        if (products == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 
     @GetMapping("/getInformation/{id}")
@@ -69,6 +75,7 @@ public class ProductController {
 
     @PutMapping("/edit")
     public ResponseEntity<Product> editProduct(@Valid @RequestBody DtoProduct product, BindingResult bindingResult) {
+        System.out.println();
         if (!bindingResult.hasFieldErrors()) {
             if (product != null) {
                 this.productService.updateProduct(product);
@@ -88,5 +95,14 @@ public class ProductController {
         }
         this.productService.delete(product.getProductId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Page<Product>> searchProduct(@RequestParam("key") String name,@PageableDefault(size = 5) Pageable pageable){
+        System.out.println();
+        Page<Product> products = productService.searchByCategory(name,pageable);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 }

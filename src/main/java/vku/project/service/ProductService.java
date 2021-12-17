@@ -5,9 +5,12 @@ import org.springframework.data.domain.Pageable;
 import vku.project.dto.DtoProduct;
 import vku.project.entity.Product;
 
+import java.util.List;
+
 
 public interface ProductService {
     Page<Product> finAll(Pageable pageable);
+    List<Product> findAllListProduct();
     Product findById(String id);
     void saveProduct(DtoProduct product);
     void updateProduct(DtoProduct product);

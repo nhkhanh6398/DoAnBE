@@ -8,7 +8,7 @@ public class DtoEmployee {
     @NotNull
     private String nameEmployee;
     @NotNull
-    private Date dateOfBirth;
+    private String dateOfBirth;
     @NotNull
     private String idCard;
     @NotNull
@@ -22,13 +22,30 @@ public class DtoEmployee {
     @NotNull
     private String level;
     @NotNull
+    private String detail;
+    @NotNull
     private String avatar;
     private int positionId;
 
     public DtoEmployee() {
     }
 
-    public DtoEmployee(String id, @NotNull String nameEmployee, @NotNull Date dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, @NotNull String avatar, int positionId) {
+    public DtoEmployee(String id, @NotNull String nameEmployee, @NotNull String dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, @NotNull String detail, @NotNull String avatar, int positionId) {
+        this.id = id;
+        this.nameEmployee = nameEmployee;
+        this.dateOfBirth = dateOfBirth;
+        this.idCard = idCard;
+        this.salary = salary;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+        this.level = level;
+        this.detail = detail;
+        this.avatar = avatar;
+        this.positionId = positionId;
+    }
+
+    public DtoEmployee(String id, @NotNull String nameEmployee, @NotNull String dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, @NotNull String avatar, int positionId) {
         this.id = id;
         this.nameEmployee = nameEmployee;
         this.dateOfBirth = dateOfBirth;
@@ -58,11 +75,11 @@ public class DtoEmployee {
         this.nameEmployee = nameEmployee;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -128,5 +145,13 @@ public class DtoEmployee {
 
     public void setPositionId(int positionId) {
         this.positionId = positionId;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

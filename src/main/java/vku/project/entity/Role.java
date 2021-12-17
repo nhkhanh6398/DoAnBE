@@ -7,7 +7,7 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer idRole;
     private String roleName;
     @ManyToMany
     private Set<Account> accountSet;
@@ -15,18 +15,18 @@ public class Role {
     public Role() {
     }
 
-    public Role(Integer id, String roleName, Set<Account> accountSet) {
-        this.id = id;
+    public Role(Integer idRole, String roleName, Set<Account> accountSet) {
+        this.idRole = idRole;
         this.roleName = roleName;
         this.accountSet = accountSet;
     }
 
     public Integer getId() {
-        return id;
+        return idRole;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer idRole) {
+        this.idRole = idRole;
     }
 
     public String getRoleName() {

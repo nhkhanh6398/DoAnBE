@@ -12,4 +12,5 @@ public interface EmployeeService {
     void saveEmployee(DtoEmployee employee);
     void updateEmployee(DtoEmployee employee);
     void delete(String id);
+    Page<Employee> seacrhEmployee(String name, Pageable pageable);
 }

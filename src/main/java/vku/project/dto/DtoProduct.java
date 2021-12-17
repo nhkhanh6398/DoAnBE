@@ -15,20 +15,33 @@ public class DtoProduct implements Validator {
     private double productPrice;
     @NotNull
     private String productImage;
+    @NotNull
+    private String detail;
+    @NotNull
+    private String trademark;
     private int categoriesId;
-    private int suppliersId;
 
-    public DtoProduct(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, int categoriesId, int suppliersId) {
+
+    public DtoProduct(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, @NotNull String detail, @NotNull String trademark, int categoriesId) {
         this.productId = productId;
         this.productName = productName;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
         this.productImage = productImage;
+        this.detail = detail;
+        this.trademark = trademark;
         this.categoriesId = categoriesId;
-        this.suppliersId = suppliersId;
     }
 
     public DtoProduct() {
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public String getProductId() {
@@ -79,12 +92,12 @@ public class DtoProduct implements Validator {
         this.categoriesId = categoriesId;
     }
 
-    public int getSuppliersId() {
-        return suppliersId;
+    public String getTrademark() {
+        return trademark;
     }
 
-    public void setSuppliersId(int suppliersId) {
-        this.suppliersId = suppliersId;
+    public void setTrademark(String trademark) {
+        this.trademark = trademark;
     }
 
     @Override

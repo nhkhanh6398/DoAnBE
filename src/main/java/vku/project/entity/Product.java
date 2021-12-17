@@ -20,16 +20,16 @@ public class Product {
     private double productPrice;
     @NotNull
     private String productImage;
+    @NotNull
+    private String detail;
+    @NotNull
+    private String trademark;
+
 
     @ManyToOne(targetEntity = Categories.class)
     @JoinColumn(name = "categoryId")
 
     private Categories categories;
-
-    @ManyToOne(targetEntity = Suppliers.class)
-    @JoinColumn(name = "suppliersId")
-
-    private Suppliers suppliers;
 
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "accountsId")
@@ -52,29 +52,73 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Suppliers suppliers) {
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String productImage, Categories categories,  Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
         this.productId = productId;
         this.productName = productName;
         this.productQuantity = productQuantity;
         this.productPrice = productPrice;
+        this.detail = detail;
         this.productImage = productImage;
         this.categories = categories;
-        this.suppliers = suppliers;
-    }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Suppliers suppliers, Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productQuantity = productQuantity;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
-        this.categories = categories;
-        this.suppliers = suppliers;
         this.account = account;
         this.orders = orders;
         this.codeProducts = codeProducts;
     }
 
+
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, @NotNull String detail, @NotNull String trademark, Categories categories) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productQuantity = productQuantity;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
+        this.detail = detail;
+        this.trademark = trademark;
+        this.categories = categories;
+    }
+
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productQuantity = productQuantity;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
+        this.categories = categories;
+        this.account = account;
+        this.orders = orders;
+        this.codeProducts = codeProducts;
+    }
+
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String trademark, @NotNull String productImage, Categories categories, Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productQuantity = productQuantity;
+        this.productPrice = productPrice;
+        this.detail = detail;
+        this.trademark = trademark;
+        this.productImage = productImage;
+        this.categories = categories;
+        this.account = account;
+        this.orders = orders;
+        this.codeProducts = codeProducts;
+    }
+
+    public String getTrademark() {
+        return trademark;
+    }
+
+    public void setTrademark(String trademark) {
+        this.trademark = trademark;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public String getProductId() {
         return productId;
@@ -124,13 +168,6 @@ public class Product {
         this.categories = categories;
     }
 
-    public Suppliers getSuppliers() {
-        return suppliers;
-    }
-
-    public void setSuppliers(Suppliers suppliers) {
-        this.suppliers = suppliers;
-    }
 
     public Account getAccount() {
         return account;

@@ -7,8 +7,7 @@ import java.util.Set;
 @Entity
 public class Customers {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idCustomer;
+    private String idCustomer;
     @NotNull
     private String nameCustomer;
     @NotNull
@@ -23,12 +22,12 @@ public class Customers {
     @OneToMany(mappedBy = "customer")
     private Set<Orders> orders;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id",referencedColumnName = "account")
     private Account account;
     public Customers() {
     }
 
-    public Customers(int idCustomer, String nameCustomer, String phone, String email, String idCard, String address, Set<Orders> orders) {
+    public Customers(String idCustomer, String nameCustomer, String phone, String email, String idCard, String address, Set<Orders> orders) {
         this.idCustomer = idCustomer;
         this.nameCustomer = nameCustomer;
         this.phone = phone;
@@ -38,7 +37,17 @@ public class Customers {
         this.orders = orders;
     }
 
-    public Customers(int idCustomer, String nameCustomer, String phone, String email, String idCard, String address, Set<Orders> orders, Account account) {
+    public Customers(String idCustomer, @NotNull String nameCustomer, @NotNull String phone, @NotNull String email, @NotNull String idCard, @NotNull String address, Account account) {
+        this.idCustomer = idCustomer;
+        this.nameCustomer = nameCustomer;
+        this.phone = phone;
+        this.email = email;
+        this.idCard = idCard;
+        this.address = address;
+        this.account = account;
+    }
+
+    public Customers(String idCustomer, String nameCustomer, String phone, String email, String idCard, String address, Set<Orders> orders, Account account) {
         this.idCustomer = idCustomer;
         this.nameCustomer = nameCustomer;
         this.phone = phone;
@@ -57,11 +66,11 @@ public class Customers {
         this.account = account;
     }
 
-    public int getIdCustomer() {
+    public String getIdCustomer() {
         return idCustomer;
     }
 
-    public void setIdCustomer(int idCustomer) {
+    public void setIdCustomer(String idCustomer) {
         this.idCustomer = idCustomer;
     }
 

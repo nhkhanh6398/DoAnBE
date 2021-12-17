@@ -12,7 +12,7 @@ public class Employee {
     @NotNull
     private String nameEmployee;
     @NotNull
-    private Date dateOfBirth;
+    private String dateOfBirth;
     @NotNull
     private String idCard;
     @NotNull
@@ -37,7 +37,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String id, @NotNull String nameEmployee, @NotNull Date dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, String avatar, Position position) {
+    public Employee(String id, @NotNull String nameEmployee, @NotNull String dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, String avatar, Position position) {
         this.id = id;
         this.nameEmployee = nameEmployee;
         this.dateOfBirth = dateOfBirth;
@@ -51,7 +51,7 @@ public class Employee {
         this.position = position;
     }
 
-    public Employee(String id, String nameEmployee, Date dateOfBirth, String idCard, double salary, String phoneNumber, String email, String address, String level, String avatar, Set<Orders> orders, Position position) {
+    public Employee(String id, @NotNull String nameEmployee, @NotNull String dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, String avatar, Set<Orders> orders, Position position) {
         this.id = id;
         this.nameEmployee = nameEmployee;
         this.dateOfBirth = dateOfBirth;
@@ -65,6 +65,9 @@ public class Employee {
         this.orders = orders;
         this.position = position;
     }
+
+
+
 
     public String getId() {
         return id;
@@ -82,11 +85,11 @@ public class Employee {
         this.nameEmployee = nameEmployee;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

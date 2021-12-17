@@ -60,5 +60,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository.deleteById(id);
     }
 
+    @Override
+    public Page<Employee> seacrhEmployee(String name, Pageable pageable) {
+        return this.employeeRepository.searchEmployee(name, pageable);
+    }
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import vku.project.dto.DtoCustomer;
 import vku.project.entity.Customers;
 import vku.project.service.CustomerService;
 
@@ -30,7 +31,7 @@ public class CustomerController {
         return new ResponseEntity<>(customersPage, HttpStatus.OK);
     }
     @GetMapping("/getInformation/{id}")
-    public ResponseEntity<Customers> getInforCustomer(@PathVariable Integer id){
+    public ResponseEntity<Customers> getInforCustomer(@PathVariable String id){
         Customers customers = customerService.findById(id);
         if (customers == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -38,7 +39,7 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
     @PostMapping("/create")
-    public ResponseEntity<Customers> createCustomer(@Valid @RequestBody Customers customers, BindingResult bindingResult){
+    public ResponseEntity<Customers> createCustomer(@Valid @RequestBody DtoCustomer customers, BindingResult bindingResult){
         if (!bindingResult.hasFieldErrors()){
             customerService.saveCustomer(customers);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -47,7 +48,7 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
     @PutMapping("/edit")
-    public ResponseEntity<Customers> editCustomer(@Valid @RequestBody Customers customers,BindingResult bindingResult){
+    public ResponseEntity<Customers> editCustomer(@Valid @RequestBody DtoCustomer customers,BindingResult bindingResult){
 
         if (!bindingResult.hasFieldErrors()){
             this.customerService.updateCustomer(customers);
@@ -56,13 +57,21 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<Customers> deleteCustomer(@PathVariable int id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Customers> deleteCustomer(@PathVariable String id){
         Customers customers = customerService.findById(id);
         if (customers == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         customerService.delete(customers);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<Page<Customers>> searchCustomer(@RequestParam ("key")String name, @PageableDefault(size = 5) Pageable pageable){
+        Page<Customers> customersPage = this.customerService.searchCustomer(name,pageable);
+        if (customersPage.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(customersPage,HttpStatus.OK);
     }
 }

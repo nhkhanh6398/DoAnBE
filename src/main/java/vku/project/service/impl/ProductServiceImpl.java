@@ -8,10 +8,10 @@ import vku.project.dto.DtoProduct;
 import vku.project.entity.*;
 import vku.project.repository.CategoryRepository;
 import vku.project.repository.ProductRepository;
-import vku.project.repository.SupplierRepository;
 import vku.project.service.CodeProductService;
 import vku.project.service.ProductService;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -20,8 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CodeProductService codeProductService;
-    @Autowired
-    private SupplierRepository supplierRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -32,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAllListProduct() {
+        return this.productRepository.findAll();
+    }
+
+    @Override
     public Product findById(String id) {
         return this.productRepository.findById(id).orElse(null);
     }
@@ -39,16 +43,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void saveProduct(DtoProduct product) {
-        Suppliers suppliers = supplierRepository.getById(product.getSuppliersId());
+
         Categories categories = categoryRepository.getById(product.getCategoriesId());
         Product product1 = new Product(
                 product.getProductId(), product.getProductName(), product.getProductQuantity(), product.getProductPrice(),
-                product.getProductImage(), categories, suppliers);
+                product.getProductImage(), product.getDetail(), product.getTrademark(), categories);
         this.productRepository.save(product1);
         Status avaiable = new Status(1);
         for (int i = 0; i < product.getProductQuantity(); i++) {
             int n = 10000 + new Random().nextInt(90000);
-            CodeProduct codeProduct = new CodeProduct(n, this.productRepository.findById(product.getProductId()).orElse(null),avaiable);
+            CodeProduct codeProduct = new CodeProduct(n, this.productRepository.findById(product.getProductId()).orElse(null), avaiable);
             product1.generateCode(codeProduct);
             codeProductService.save(codeProduct);
         }
@@ -57,15 +61,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(DtoProduct product) {
-        Product product1 = this.productRepository.getById(product.getProductId());
         Categories categories = this.categoryRepository.getById(product.getCategoriesId());
-        Suppliers suppliers = this.supplierRepository.getById(product.getSuppliersId());
-        product1.setProductName(product.getProductName());
-        product1.setProductQuantity(product.getProductQuantity());
-        product1.setProductPrice(product.getProductPrice());
-        product1.setProductImage(product.getProductImage());
-        product1.setCategories(categories);
-        product1.setSuppliers(suppliers);
+        Product product1 = new Product(
+                product.getProductId(), product.getProductName(), product.getProductQuantity(), product.getProductPrice(),
+                product.getProductImage(), product.getDetail(), product.getTrademark(), categories);
         this.productRepository.save(product1);
     }
 
@@ -76,6 +75,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> searchByCategory(String name, Pageable pageable) {
-        return productRepository.findAllByCategories(name, pageable);
+        return productRepository.searchProduct(name, pageable);
     }
 }

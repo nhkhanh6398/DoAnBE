@@ -84,4 +84,13 @@ public class EmployeeController {
         employeeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/search")
+    public ResponseEntity<Page<Employee>> searchEmployee(@RequestParam("key") String name, @PageableDefault(size = 5) Pageable pageable){
+        Page<Employee> employees = this.employeeService.seacrhEmployee(name, pageable);
+        if (employees.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            return new ResponseEntity<>(employees,HttpStatus.OK);
+        }
+    }
 }
