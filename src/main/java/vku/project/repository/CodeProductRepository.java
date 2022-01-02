@@ -6,4 +6,5 @@ import vku.project.entity.CodeProduct;
 
 @Repository
 public interface CodeProductRepository extends JpaRepository<CodeProduct, Integer> {
+    CodeProduct findByProduct_ProductIdAndCode(String id, Integer code);
 }

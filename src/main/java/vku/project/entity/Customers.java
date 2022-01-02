@@ -1,5 +1,8 @@
 package vku.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -19,10 +22,8 @@ public class Customers {
     @NotNull
     private String address;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<Orders> orders;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id",referencedColumnName = "account")
+    @OneToOne(mappedBy = "customer",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Account account;
     public Customers() {
     }
@@ -34,7 +35,7 @@ public class Customers {
         this.email = email;
         this.idCard = idCard;
         this.address = address;
-        this.orders = orders;
+
     }
 
     public Customers(String idCustomer, @NotNull String nameCustomer, @NotNull String phone, @NotNull String email, @NotNull String idCard, @NotNull String address, Account account) {
@@ -47,16 +48,15 @@ public class Customers {
         this.account = account;
     }
 
-    public Customers(String idCustomer, String nameCustomer, String phone, String email, String idCard, String address, Set<Orders> orders, Account account) {
+    public Customers(String idCustomer, @NotNull String nameCustomer, @NotNull String phone, @NotNull String email, @NotNull String idCard, @NotNull String address) {
         this.idCustomer = idCustomer;
         this.nameCustomer = nameCustomer;
         this.phone = phone;
         this.email = email;
         this.idCard = idCard;
         this.address = address;
-        this.orders = orders;
-        this.account = account;
     }
+
 
     public Account getAccount() {
         return account;
@@ -114,11 +114,5 @@ public class Customers {
         this.address = address;
     }
 
-    public Set<Orders> getOrders() {
-        return orders;
-    }
 
-    public void setOrders(Set<Orders> orders) {
-        this.orders = orders;
-    }
 }

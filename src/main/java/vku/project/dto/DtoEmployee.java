@@ -22,28 +22,13 @@ public class DtoEmployee {
     @NotNull
     private String level;
     @NotNull
-    private String detail;
-    @NotNull
     private String avatar;
     private int positionId;
 
     public DtoEmployee() {
     }
 
-    public DtoEmployee(String id, @NotNull String nameEmployee, @NotNull String dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, @NotNull String detail, @NotNull String avatar, int positionId) {
-        this.id = id;
-        this.nameEmployee = nameEmployee;
-        this.dateOfBirth = dateOfBirth;
-        this.idCard = idCard;
-        this.salary = salary;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.level = level;
-        this.detail = detail;
-        this.avatar = avatar;
-        this.positionId = positionId;
-    }
+
 
     public DtoEmployee(String id, @NotNull String nameEmployee, @NotNull String dateOfBirth, @NotNull String idCard, @NotNull double salary, @NotNull String phoneNumber, @NotNull String email, @NotNull String address, @NotNull String level, @NotNull String avatar, int positionId) {
         this.id = id;
@@ -147,11 +132,4 @@ public class DtoEmployee {
         this.positionId = positionId;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
 }

@@ -21,4 +21,11 @@ public interface CustomerRepository extends JpaRepository<Customers, String> {
             "or c.address like %:key% " +
             "or a.account like %:key% ")
     Page<Customers> searchCustomer(@Param("key") String name, Pageable pageable);
+
+    @Query("select c.idCustomer,c.nameCustomer,c.email,c.idCard,c.address,a.account \n" +
+            "from Customers c \n" +
+            "inner join Account a on a.customer.idCustomer = c.idCustomer \n" +
+            "group by c.idCustomer")
+    Page<Customers> showListCustomer(Pageable pageable);
+    Customers findCustomersByAccount_Account(String account);
 }

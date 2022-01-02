@@ -10,6 +10,12 @@ import vku.project.service.AccountService;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
+
+    @Override
+    public Account findById(String userName) {
+        return this.accountRepository.findById(userName).orElse(null);
+    }
+
     @Override
     public void save(Account account) {
         this.accountRepository.save(account);

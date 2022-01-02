@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Account {
@@ -12,12 +13,14 @@ public class Account {
     private String account;
     private String password;
     private Date dateCreate;
-    @OneToOne(mappedBy = "account")
-    private Customers customers;
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private List<Role> roles;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn( name="customer_id")
+    @JsonIgnore
+    private Customers customer;
+
+    @OneToMany(mappedBy = "account")
+    private Set<Orders> orders;
     @OneToMany(mappedBy = "account")
     @JsonIgnore
     List<Product> products;
@@ -25,11 +28,10 @@ public class Account {
     }
 
     public Account( String account, String password, Date dateCreate, Customers customers) {
-
         this.account = account;
         this.password = password;
         this.dateCreate = dateCreate;
-        this.customers = customers;
+        this.customer = customers;
 
     }
 
@@ -43,13 +45,26 @@ public class Account {
         this.account = account;
         this.password = password;
         this.dateCreate = dateCreate;
-        this.customers = customers;
-
+        this.customer = customers;
         this.products = products;
     }
 
 
+    public Customers getCustomer() {
+        return customer;
+    }
 
+    public void setCustomer(Customers customer) {
+        this.customer = customer;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
+    }
 
     public List<Product> getProducts() {
         return products;
@@ -86,10 +101,10 @@ public class Account {
     }
 
     public Customers getCustomers() {
-        return customers;
+        return customer;
     }
 
     public void setCustomers(Customers customers) {
-        this.customers = customers;
+        this.customer = customers;
     }
 }

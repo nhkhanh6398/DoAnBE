@@ -21,26 +21,8 @@ public class CodeProduct {
     public CodeProduct() {
     }
 
-    public CodeProduct(int id, @Range(min = 10000, max = 99999) int code) {
-        this.id = id;
+    public CodeProduct(int code, Product product, Status status) {
         this.code = code;
-    }
-
-    public CodeProduct(int id, @Range(min = 10000, max = 99999) int code, Product product, Status status) {
-        this.id = id;
-        this.code = code;
-        this.product = product;
-        this.status = status;
-    }
-
-    public CodeProduct(int id, @Range(min = 10000, max = 99999) int code, Product product) {
-        this.id = id;
-        this.code = code;
-        this.product = product;
-    }
-
-    public CodeProduct(int id, Product product, Status status) {
-        this.id = id;
         this.product = product;
         this.status = status;
     }

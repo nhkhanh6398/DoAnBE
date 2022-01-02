@@ -34,7 +34,7 @@ public class Product {
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "accountsId")
     @JsonBackReference
-    private Account account;
+    private Set<Account> account;
 
     @ManyToMany
     @JoinTable(name = "order_details", joinColumns = @JoinColumn(name = "productId"),
@@ -52,7 +52,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String productImage, Categories categories,  Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String productImage, Categories categories,  Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
         this.productId = productId;
         this.productName = productName;
         this.productQuantity = productQuantity;
@@ -78,7 +78,7 @@ public class Product {
         this.categories = categories;
     }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
         this.productId = productId;
         this.productName = productName;
         this.productQuantity = productQuantity;
@@ -90,7 +90,7 @@ public class Product {
         this.codeProducts = codeProducts;
     }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String trademark, @NotNull String productImage, Categories categories, Account account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String trademark, @NotNull String productImage, Categories categories, Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
         this.productId = productId;
         this.productName = productName;
         this.productQuantity = productQuantity;
@@ -169,11 +169,11 @@ public class Product {
     }
 
 
-    public Account getAccount() {
+    public Set<Account> getAccount() {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(Set<Account> account) {
         this.account = account;
     }
 

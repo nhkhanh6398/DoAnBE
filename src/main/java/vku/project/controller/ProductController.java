@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import vku.project.dto.DtoProduct;
+import vku.project.entity.Account;
 import vku.project.entity.Categories;
 import vku.project.entity.Product;
 import vku.project.service.CategoryService;
@@ -25,7 +26,6 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
-
 
 
     @GetMapping("/catagory")
@@ -100,6 +100,15 @@ public class ProductController {
     public ResponseEntity<Page<Product>> searchProduct(@RequestParam("key") String name,@PageableDefault(size = 5) Pageable pageable){
         System.out.println();
         Page<Product> products = productService.searchByCategory(name,pageable);
+        if (products.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products,HttpStatus.OK);
+    }
+    @GetMapping("/listSearch")
+    public ResponseEntity<List<Product>> listSearchProduct(@RequestParam("key") String name){
+        System.out.println();
+        List<Product> products = productService.searchListProduct(name);
         if (products.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

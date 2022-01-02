@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Orders {
@@ -12,16 +14,17 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ordersId;
     @NotNull
-    private String orderDate;
-    @NotNull
+    private Date orderDate;
     private String requireDate;
-    @NotNull
-    private String status;
+
 
     @ManyToMany(mappedBy = "orders")
     @JsonIgnore
     List<Product> products;
-
+    @ManyToOne
+    @JoinColumn(name = "idStatus")
+    @JsonIgnore
+    private StatusContract statusContract;
     @ManyToOne
     @JoinColumn(name = "employeeId")
     @JsonIgnore
@@ -29,29 +32,34 @@ public class Orders {
 
 
     @ManyToOne
-    @JoinColumn(name = "idCustomer")
-    private Customers customer;
+    @JoinColumn(name = "account")
+    private Account account;
 
 
     public Orders() {
     }
 
-    public Orders(int ordersId, @NotNull String orderDate, @NotNull String requireDate, @NotNull String status, List<Product> products, Employee employee, Customers customer) {
+    public Orders(int ordersId, @NotNull Date orderDate, List<Product> products, StatusContract statusContract, Account account) {
         this.ordersId = ordersId;
         this.orderDate = orderDate;
-        this.requireDate = requireDate;
-        this.status = status;
         this.products = products;
-        this.employee = employee;
-        this.customer = customer;
+        this.statusContract = statusContract;
+        this.account = account;
     }
 
-    public String getStatus() {
-        return status;
+    public Orders(int ordersId, @NotNull Date orderDate, StatusContract statusContract, Account account) {
+        this.ordersId = ordersId;
+        this.orderDate = orderDate;
+        this.statusContract = statusContract;
+        this.account = account;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public StatusContract getStatusContract() {
+        return statusContract;
+    }
+
+    public void setStatusContract(StatusContract statusContract) {
+        this.statusContract = statusContract;
     }
 
     public int getOrdersId() {
@@ -62,11 +70,11 @@ public class Orders {
         this.ordersId = ordersId;
     }
 
-    public String getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(String orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -95,11 +103,11 @@ public class Orders {
     }
 
 
-    public Customers getCustomer() {
-        return customer;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setCustomer(Customers customer) {
-        this.customer = customer;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
