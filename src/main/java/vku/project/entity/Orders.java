@@ -15,7 +15,10 @@ public class Orders {
     private int ordersId;
     @NotNull
     private Date orderDate;
-    private String requireDate;
+    private String address;
+    private String userName;
+    private String phone;
+    private Integer total;
 
 
     @ManyToMany(mappedBy = "orders")
@@ -54,6 +57,17 @@ public class Orders {
         this.account = account;
     }
 
+    public Orders(int ordersId, @NotNull Date orderDate, String address, String userName, String phone, Integer total, StatusContract statusContract, Account account) {
+        this.ordersId = ordersId;
+        this.orderDate = orderDate;
+        this.address = address;
+        this.userName = userName;
+        this.phone = phone;
+        this.total = total;
+        this.statusContract = statusContract;
+        this.account = account;
+    }
+
     public StatusContract getStatusContract() {
         return statusContract;
     }
@@ -78,12 +92,28 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
-    public String getRequireDate() {
-        return requireDate;
+    public String getAddress() {
+        return address;
     }
 
-    public void setRequireDate(String requireDate) {
-        this.requireDate = requireDate;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public List<Product> getProducts() {
@@ -109,5 +139,13 @@ public class Orders {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

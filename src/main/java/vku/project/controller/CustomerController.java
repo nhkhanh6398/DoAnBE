@@ -10,12 +10,14 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import vku.project.dto.DtoCustomer;
 import vku.project.entity.Account;
 import vku.project.entity.Categories;
 import vku.project.entity.Customers;
+import vku.project.service.AccountService;
 import vku.project.service.CustomerService;
 
 import javax.mail.MessagingException;
@@ -29,6 +31,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private AccountService accountService;
 //    @Autowired
 //    JavaMailSender emailSender;
     @Autowired
@@ -40,6 +44,14 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+    @GetMapping("/getByAccount/{id}")
+    public ResponseEntity<Account> accountCustomer(@PathVariable String id){
+        Account account = this.accountService.findById(id);
+        if (account == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(account,HttpStatus.OK);
     }
     @GetMapping("/detailCustomerByAccount/{id}")
     public ResponseEntity<Customers> findCustomerByAccount(@PathVariable String id){

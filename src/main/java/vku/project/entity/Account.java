@@ -20,6 +20,7 @@ public class Account {
     private Customers customer;
 
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private Set<Orders> orders;
     @OneToMany(mappedBy = "account")
     @JsonIgnore

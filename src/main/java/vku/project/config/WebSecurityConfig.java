@@ -53,7 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable().and().cors();
         http.cors().and().csrf().disable()
                 .authorizeRequests().antMatchers("/product/listAllProduct", "/login","/customer/create","/customer/edit","/product/listSearch"
-                ,"/product/getInformation/{id}","/customer/account","/customer/detailCustomerByAccount/{id}","/product/catagory","/order/orders").permitAll()
+                ,"/product/getInformation/{id}","/customer/account",
+                "/customer/detailCustomerByAccount/{id}","/product/catagory","/order/orders","/customer/getByAccount/{id}"
+        ,"/order/getOrders/{id}").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                .antMatchers("/api/employee/**", "/random").hasAnyRole("EMPLOYEE")
                 .antMatchers("/product/list","/product/create","/product/edit","/product/delete/{id}","/product/search",

@@ -192,4 +192,21 @@ public class Product {
     public void setCodeProducts(Set<CodeProduct> codeProducts) {
         this.codeProducts = codeProducts;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productQuantity=" + productQuantity +
+                ", productPrice=" + productPrice +
+                ", productImage='" + productImage + '\'' +
+                ", detail='" + detail + '\'' +
+                ", trademark='" + trademark + '\'' +
+                ", categories=" + categories +
+                ", account=" + account +
+                ", orders=" + orders +
+                ", codeProducts=" + codeProducts +
+                '}';
+    }
 }

@@ -8,7 +8,10 @@ public class DtoOrder {
     private int ordersId;
     private List<DtoProduct> idProduct;
     private String account;
-
+    private String userName;
+    private String address;
+    private String phone;
+    private Integer total;
 
     public DtoOrder() {
     }
@@ -27,6 +30,16 @@ public class DtoOrder {
         this.account = account;
     }
 
+    public DtoOrder(int ordersId, List<DtoProduct> idProduct, String account, String userName, String address, String phone, Integer total) {
+        this.ordersId = ordersId;
+        this.idProduct = idProduct;
+        this.account = account;
+        this.userName = userName;
+        this.address = address;
+        this.phone = phone;
+        this.total = total;
+    }
+
     public List<DtoProduct> getIdProduct() {
         return idProduct;
     }
@@ -41,5 +54,37 @@ public class DtoOrder {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

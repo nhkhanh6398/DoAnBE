@@ -6,12 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vku.project.dto.DtoOrder;
 import vku.project.entity.Account;
+import vku.project.entity.Orders;
 import vku.project.entity.Product;
 import vku.project.repository.AccountRepository;
 import vku.project.service.OrderService;
 import vku.project.service.ProductService;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/order")
@@ -29,6 +31,15 @@ public class OrderController {
         System.out.println();
         this.orderService.order(order);
         return new  ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/getOrders/{id}")
+    public ResponseEntity<List<Orders>> getOrders(@PathVariable String id){
+        System.out.println();
+        List<Orders> orders = this.orderService.getOrderByAccount(id);
+        if (orders == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 
 }
