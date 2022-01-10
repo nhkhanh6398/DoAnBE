@@ -21,4 +21,5 @@ public interface CustomerService {
     void delete(String id);
     Page<Customers> searchCustomer(String name, Pageable pageable);
     List<Account> finAllAccount();
+    Account getAccountByIdCustomer(String id);
 }

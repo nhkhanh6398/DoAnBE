@@ -6,4 +6,5 @@ import vku.project.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account,String> {
     Account findByAccount(String userName);
+    Account findAccountByCustomer_IdCustomer(String id);
 }

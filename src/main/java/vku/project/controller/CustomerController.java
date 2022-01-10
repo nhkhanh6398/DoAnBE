@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import vku.project.dto.DtoAccount;
 import vku.project.dto.DtoCustomer;
 import vku.project.entity.Account;
 import vku.project.entity.Categories;
@@ -53,6 +54,14 @@ public class CustomerController {
         }
         return new ResponseEntity<>(account,HttpStatus.OK);
     }
+    @PutMapping("/changePassWord")
+    public ResponseEntity<Account> changePass(@Valid  @RequestBody DtoAccount dtoAccount, BindingResult bindingResult){
+       if (!bindingResult.hasFieldErrors()){
+        this.accountService.changePassWord(dtoAccount);
+        return new ResponseEntity<>(HttpStatus.OK);
+       }
+       return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
     @GetMapping("/detailCustomerByAccount/{id}")
     public ResponseEntity<Customers> findCustomerByAccount(@PathVariable String id){
         Customers customers = customerService.findCustomerByAccount(id);
@@ -77,6 +86,14 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+    @GetMapping("/getInforByAdmin/{id}")
+    public ResponseEntity<Account> getInforByAdmin(@PathVariable String id){
+        Account account = customerService.getAccountByIdCustomer(id);
+        if (account == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
     public void sendEmail(String from,String to, String subject, String content){
         SimpleMailMessage mailMessage = new SimpleMailMessage();

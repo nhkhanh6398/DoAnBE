@@ -36,11 +36,11 @@ public class Product {
     @JsonBackReference
     private Set<Account> account;
 
-    @ManyToMany
-    @JoinTable(name = "order_details", joinColumns = @JoinColumn(name = "productId"),
-            inverseJoinColumns = @JoinColumn(name = "ordersId"))
-    @JsonBackReference
-    private List<Orders> orders;
+//    @ManyToMany
+//    @JoinTable(name = "order_details", joinColumns = @JoinColumn(name = "productId"),
+//            inverseJoinColumns = @JoinColumn(name = "ordersId"))
+//    @JsonBackReference
+//    private List<Orders> orders;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
@@ -52,19 +52,19 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String productImage, Categories categories,  Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productQuantity = productQuantity;
-        this.productPrice = productPrice;
-        this.detail = detail;
-        this.productImage = productImage;
-        this.categories = categories;
-
-        this.account = account;
-        this.orders = orders;
-        this.codeProducts = codeProducts;
-    }
+//    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String productImage, Categories categories,  Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+//        this.productId = productId;
+//        this.productName = productName;
+//        this.productQuantity = productQuantity;
+//        this.productPrice = productPrice;
+//        this.detail = detail;
+//        this.productImage = productImage;
+//        this.categories = categories;
+//
+//        this.account = account;
+//        this.orders = orders;
+//        this.codeProducts = codeProducts;
+//    }
 
 
     public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, @NotNull String detail, @NotNull String trademark, Categories categories) {
@@ -78,31 +78,31 @@ public class Product {
         this.categories = categories;
     }
 
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productQuantity = productQuantity;
-        this.productPrice = productPrice;
-        this.productImage = productImage;
-        this.categories = categories;
-        this.account = account;
-        this.orders = orders;
-        this.codeProducts = codeProducts;
-    }
-
-    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String trademark, @NotNull String productImage, Categories categories, Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productQuantity = productQuantity;
-        this.productPrice = productPrice;
-        this.detail = detail;
-        this.trademark = trademark;
-        this.productImage = productImage;
-        this.categories = categories;
-        this.account = account;
-        this.orders = orders;
-        this.codeProducts = codeProducts;
-    }
+//    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String productImage, Categories categories, Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+//        this.productId = productId;
+//        this.productName = productName;
+//        this.productQuantity = productQuantity;
+//        this.productPrice = productPrice;
+//        this.productImage = productImage;
+//        this.categories = categories;
+//        this.account = account;
+//        this.orders = orders;
+//        this.codeProducts = codeProducts;
+//    }
+//
+//    public Product(String productId, @NotNull String productName, @NotNull int productQuantity, @NotNull double productPrice, @NotNull String detail, @NotNull String trademark, @NotNull String productImage, Categories categories, Set<Account> account, List<Orders> orders, Set<CodeProduct> codeProducts) {
+//        this.productId = productId;
+//        this.productName = productName;
+//        this.productQuantity = productQuantity;
+//        this.productPrice = productPrice;
+//        this.detail = detail;
+//        this.trademark = trademark;
+//        this.productImage = productImage;
+//        this.categories = categories;
+//        this.account = account;
+//        this.orders = orders;
+//        this.codeProducts = codeProducts;
+//    }
 
     public String getTrademark() {
         return trademark;
@@ -176,14 +176,14 @@ public class Product {
     public void setAccount(Set<Account> account) {
         this.account = account;
     }
-
-    public List<Orders> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Orders> orders) {
-        this.orders = orders;
-    }
+//
+//    public List<Orders> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Orders> orders) {
+//        this.orders = orders;
+//    }
 
     public Set<CodeProduct> getCodeProducts() {
         return codeProducts;
@@ -192,21 +192,21 @@ public class Product {
     public void setCodeProducts(Set<CodeProduct> codeProducts) {
         this.codeProducts = codeProducts;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId='" + productId + '\'' +
-                ", productName='" + productName + '\'' +
-                ", productQuantity=" + productQuantity +
-                ", productPrice=" + productPrice +
-                ", productImage='" + productImage + '\'' +
-                ", detail='" + detail + '\'' +
-                ", trademark='" + trademark + '\'' +
-                ", categories=" + categories +
-                ", account=" + account +
-                ", orders=" + orders +
-                ", codeProducts=" + codeProducts +
-                '}';
-    }
+//
+//    @Override
+//    public String toString() {
+//        return "Product{" +
+//                "productId='" + productId + '\'' +
+//                ", productName='" + productName + '\'' +
+//                ", productQuantity=" + productQuantity +
+//                ", productPrice=" + productPrice +
+//                ", productImage='" + productImage + '\'' +
+//                ", detail='" + detail + '\'' +
+//                ", trademark='" + trademark + '\'' +
+//                ", categories=" + categories +
+//                ", account=" + account +
+//                ", orders=" + orders +
+//                ", codeProducts=" + codeProducts +
+//                '}';
+//    }
 }

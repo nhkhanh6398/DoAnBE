@@ -6,9 +6,11 @@ import vku.project.entity.Account;
 import vku.project.entity.Orders;
 import vku.project.entity.Product;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
     void order(DtoOrder dtoOrder);
     List<Orders> getOrderByAccount(String account);
+    List<Orders> getListOrder(Date startDate, Date endDate);
 }

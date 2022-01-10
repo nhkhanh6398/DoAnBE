@@ -13,6 +13,7 @@ public class DtoOrder {
     private String phone;
     private Integer total;
 
+
     public DtoOrder() {
     }
 
@@ -39,6 +40,8 @@ public class DtoOrder {
         this.phone = phone;
         this.total = total;
     }
+
+
 
     public List<DtoProduct> getIdProduct() {
         return idProduct;

@@ -52,18 +52,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers().frameOptions().disable().and().cors();
         http.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/product/listAllProduct", "/login","/customer/create","/customer/edit","/product/listSearch"
-                ,"/product/getInformation/{id}","/customer/account",
-                "/customer/detailCustomerByAccount/{id}","/product/catagory","/order/orders","/customer/getByAccount/{id}"
-        ,"/order/getOrders/{id}").permitAll()
+                .authorizeRequests().antMatchers("/product/listAllProduct", "/login", "/customer/create", "/customer/edit", "/product/listSearch"
+                , "/product/getInformation/{id}", "/customer/account",
+                "/customer/detailCustomerByAccount/{id}", "/product/catagory", "/order/orders", "/customer/getByAccount/{id}"
+                , "/order/getOrders/{id}", "/order/getListOrderProduct/{account}",
+                "/order/search","/customer/changePassWord").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                .antMatchers("/api/employee/**", "/random").hasAnyRole("EMPLOYEE")
-                .antMatchers("/product/list","/product/create","/product/edit","/product/delete/{id}","/product/search",
-                        "/customer/list","/product/delete/{id}",
-                        "/employee/position","/employee/list",
+                .antMatchers("/product/list", "/product/create", "/product/edit", "/product/delete/{id}", "/product/search",
+                        "/customer/list", "/product/delete/{id}",
+                        "/employee/position", "/employee/list",
                         "/employee//getInformation/{id}",
-                        "/employee/create","/employee/edit",
-                        "/employee/delete/{id}","/employee/search").hasRole("ADMIN")
+                        "/employee/create", "/employee/edit",
+                        "/employee/delete/{id}", "/employee/search", "/order/listOrder-Admin",
+                        "/order/statisticOrder","/customer/getInforByAdmin/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().
                 sessionManagement()

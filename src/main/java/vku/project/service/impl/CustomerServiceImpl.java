@@ -97,5 +97,10 @@ public class CustomerServiceImpl implements CustomerService {
         return this.accountRepository.findAll();
     }
 
+    @Override
+    public Account getAccountByIdCustomer(String id) {
+        return this.accountRepository.findAccountByCustomer_IdCustomer(id);
+    }
+
 
 }

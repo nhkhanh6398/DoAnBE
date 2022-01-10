@@ -21,9 +21,9 @@ public class Orders {
     private Integer total;
 
 
-    @ManyToMany(mappedBy = "orders")
-    @JsonIgnore
-    List<Product> products;
+//    @ManyToMany(mappedBy = "orders")
+//    @JsonIgnore
+//    List<Product> products;
     @ManyToOne
     @JoinColumn(name = "idStatus")
     @JsonIgnore
@@ -42,13 +42,6 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int ordersId, @NotNull Date orderDate, List<Product> products, StatusContract statusContract, Account account) {
-        this.ordersId = ordersId;
-        this.orderDate = orderDate;
-        this.products = products;
-        this.statusContract = statusContract;
-        this.account = account;
-    }
 
     public Orders(int ordersId, @NotNull Date orderDate, StatusContract statusContract, Account account) {
         this.ordersId = ordersId;
@@ -116,13 +109,13 @@ public class Orders {
         this.total = total;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 
     public Employee getEmployee() {
         return employee;
