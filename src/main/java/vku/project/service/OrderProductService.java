@@ -11,4 +11,6 @@ public interface OrderProductService {
     List<OrderProduct> findAll(String account);
     Page<OrderProduct> findAllOrder(Pageable pageable);
     Page<OrderProduct> search(String key, Pageable pageable);
+    OrderProduct findById(int id);
+    void delete (Integer id);
 }

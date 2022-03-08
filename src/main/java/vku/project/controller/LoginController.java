@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import vku.project.dto.AccountResponse;
+import vku.project.dto.ChangePasswordForm;
 import vku.project.dto.LoginForm;
 import vku.project.service.LoginService;
 
@@ -28,7 +29,13 @@ public class LoginController {
         }
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
-
+    @PostMapping(value = "/change-password")
+    public ResponseEntity<String> doChangePassword(@RequestBody ChangePasswordForm form){
+        if(this.loginService.doChangePassword(form)){
+            return new ResponseEntity<>("{\"message\": \"success\"}", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("{\"message\": \"fail\"}", HttpStatus.OK);
+    }
     @GetMapping("/random")
     public ResponseEntity<AccountResponse> randomStuff(){
         return new ResponseEntity<>(new AccountResponse("Kiểm tra jwt thành công"),

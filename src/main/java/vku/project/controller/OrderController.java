@@ -1,5 +1,6 @@
 package vku.project.controller;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,11 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vku.project.dto.DtoOrder;
-import vku.project.entity.Account;
-import vku.project.entity.OrderProduct;
-import vku.project.entity.Orders;
-import vku.project.entity.Product;
+import vku.project.entity.*;
 import vku.project.repository.AccountRepository;
+import vku.project.repository.OrderRepository;
 import vku.project.service.OrderProductService;
 import vku.project.service.OrderService;
 import vku.project.service.ProductService;
@@ -40,7 +39,29 @@ public class OrderController {
         this.orderService.order(order);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @GetMapping("/finById/{id}")
+    public ResponseEntity<Orders> findById(@PathVariable int id) {
+        System.out.println();
+        Orders orderProducts = this.orderService.findById(id);
+        if (orderProducts == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        StatusContract  statusContract= new StatusContract(2);
+        Orders orders = new Orders(orderProducts.getOrdersId(),orderProducts.getOrderDate(),orderProducts.getAddress(),
+                orderProducts.getUserName(),orderProducts.getPhone(),orderProducts.getTotal(),statusContract,orderProducts.getAccount());
+        this.orderService.save(orders);
+        return new ResponseEntity<>(orderProducts, HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Orders> delete(@PathVariable Integer id){
+        System.out.println();
+        OrderProduct orders = this.orderProductService.findById(id);
+        if(orders == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+       this.orderProductService.delete(orders.getOrders().getOrdersId());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
     @GetMapping("/listOrder-Admin")
     public ResponseEntity<Page<OrderProduct>> finall(@PageableDefault(size = 5) Pageable pageable) {
         Page<OrderProduct> orderProducts = this.orderProductService.findAllOrder(pageable);
@@ -70,7 +91,7 @@ public class OrderController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<OrderProduct>> search(@RequestParam("key") String name, @PageableDefault(size = 5) Pageable pageable) {
+    public ResponseEntity<Page<OrderProduct>> search(@RequestParam("account") String name, @PageableDefault(size = 5) Pageable pageable) {
         System.out.println();
         Page<OrderProduct> orderProducts = this.orderProductService.search(name, pageable);
         if (orderProducts.isEmpty()) {

@@ -6,12 +6,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vku.project.config.JwtTokenUtil;
 import vku.project.dto.AccountResponse;
+import vku.project.dto.ChangePasswordForm;
 import vku.project.entity.Account;
 import vku.project.service.AccountService;
 import vku.project.service.LoginService;
+
+import java.util.Date;
+
 @Service
 public class LoginServiceImpl implements LoginService {
     @Autowired
@@ -54,5 +59,23 @@ public class LoginServiceImpl implements LoginService {
             return null;
         }
         return new AccountResponse(userName, account.getDateCreate(), jwt, role);
+    }
+
+    @Override
+    public boolean doChangePassword(ChangePasswordForm form) {
+        BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getUsername(),
+                    form.getPassword()));
+        }catch (Exception e){
+            return false;
+        }
+        Account account = this.accountService.findById(form.getUsername());
+        if(account == null){
+            return false;
+        }
+        account.setPassword(encode.encode(form.getNewPassword()));
+        this.accountService.save(account);
+        return true;
     }
 }

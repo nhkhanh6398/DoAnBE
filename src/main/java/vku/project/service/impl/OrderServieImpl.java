@@ -37,7 +37,7 @@ public class OrderServieImpl implements OrderService {
 //        List<Product> productList = new ArrayList<>();
         Product product1 = null;
         Account account1 = accountRepository.findById(dtoOrder.getAccount()).orElse(null);
-        StatusContract statusContract = new StatusContract(1, "Open");
+        StatusContract statusContract = new StatusContract(1, "Đang Chờ");
         Date date = new Date(System.currentTimeMillis());
         Orders orders = new Orders(dtoOrder.getOrdersId(), date, dtoOrder.getAddress(), dtoOrder.getUserName(), dtoOrder.getPhone(),
                 dtoOrder.getTotal(), statusContract, account1);
@@ -47,7 +47,7 @@ public class OrderServieImpl implements OrderService {
 //            productList.add(product1);
             if (account1 != null && product1 != null) {
                 if (product1.getProductQuantity() > 0) {
-                    product1.setProductQuantity(product1.getProductQuantity() - 1);
+                    product1.setProductQuantity(product1.getProductQuantity() - p.getProductQuantity());
                 }
                 OrderProductKey orderProductKey = new OrderProductKey(product1.getProductId(),order1.getOrdersId());
                 OrderProduct orderProduct = new OrderProduct(orderProductKey,product1,order1,p.getProductQuantity());
@@ -74,6 +74,21 @@ public class OrderServieImpl implements OrderService {
     public List<Orders> getListOrder(Date startDate, Date endDate) {
 
         return this.orderRepository.getList(startDate,endDate);
+    }
+
+    @Override
+    public Orders findById(int id) {
+        return this.orderRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void save(Orders orders) {
+        this.orderRepository.save(orders);
+    }
+
+    @Override
+    public void delete(int id) {
+        this.orderRepository.deleteById(id);
     }
 
     public void sendEmail(String from, String to, String subject, String content) {

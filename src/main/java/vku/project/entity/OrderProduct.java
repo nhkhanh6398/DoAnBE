@@ -6,11 +6,11 @@ import javax.persistence.*;
 public class OrderProduct {
     @EmbeddedId
     private OrderProductKey id;
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("productId")
     @JoinColumn(name = "productId")
     private Product product;
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("ordersId")
     @JoinColumn(name = "orderId")
     private Orders orders;

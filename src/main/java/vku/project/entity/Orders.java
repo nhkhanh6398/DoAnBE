@@ -26,13 +26,11 @@ public class Orders {
 //    List<Product> products;
     @ManyToOne
     @JoinColumn(name = "idStatus")
-    @JsonIgnore
     private StatusContract statusContract;
     @ManyToOne
     @JoinColumn(name = "employeeId")
     @JsonIgnore
     private Employee employee;
-
 
     @ManyToOne
     @JoinColumn(name = "account")

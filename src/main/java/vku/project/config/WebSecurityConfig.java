@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 , "/product/getInformation/{id}", "/customer/account",
                 "/customer/detailCustomerByAccount/{id}", "/product/catagory", "/order/orders", "/customer/getByAccount/{id}"
                 , "/order/getOrders/{id}", "/order/getListOrderProduct/{account}",
-                "/order/search","/customer/changePassWord").permitAll()
+                "/order/search","/customer/changePassWord","/change-password").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                .antMatchers("/api/employee/**", "/random").hasAnyRole("EMPLOYEE")
                 .antMatchers("/product/list", "/product/create", "/product/edit", "/product/delete/{id}", "/product/search",
@@ -65,7 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/employee//getInformation/{id}",
                         "/employee/create", "/employee/edit",
                         "/employee/delete/{id}", "/employee/search", "/order/listOrder-Admin",
-                        "/order/statisticOrder","/customer/getInforByAdmin/{id}").hasRole("ADMIN")
+                        "/order/statisticOrder","/customer/getInforByAdmin/{id}",
+                        "/order/finById/{id}","/order/delete/{id}").hasRole("ADMIN")
                 .anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().
                 sessionManagement()

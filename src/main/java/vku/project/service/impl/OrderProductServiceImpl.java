@@ -31,7 +31,18 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     @Override
     public Page<OrderProduct> search(String key, Pageable pageable) {
-        System.out.println();
-        return this.orderProductRepository.listOrderProductByAccount(key, pageable);
+        return this.orderProductRepository.findAllByOrders_AccountAccountContaining(key, pageable);
+
     }
+
+    @Override
+    public OrderProduct findById(int id) {
+        return this.orderProductRepository.findAllByOrdersOrdersId(id);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        this.orderProductRepository.deleteAllByOrdersOrdersId(id);
+    }
+
 }

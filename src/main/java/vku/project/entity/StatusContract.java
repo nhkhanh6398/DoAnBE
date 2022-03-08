@@ -8,7 +8,6 @@ import java.util.Set;
 @Entity
 public class StatusContract {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idStatus;
     private String status;
     @OneToMany(mappedBy = "statusContract")
@@ -27,6 +26,10 @@ public class StatusContract {
     public StatusContract(int idStatus, String status) {
         this.idStatus = idStatus;
         this.status = status;
+    }
+
+    public StatusContract(int idStatus) {
+        this.idStatus = idStatus;
     }
 
     public int getIdStatus() {
